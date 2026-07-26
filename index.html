@@ -33,7 +33,9 @@
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
-  html{ scroll-behavior: smooth; }
+  html{ scroll-behavior: smooth; 
+       overflow-x: hidden; 
+       width: 100%; }
 
   body{
     background: var(--ink);
@@ -41,6 +43,7 @@
     font-family: var(--body);
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -143,6 +146,7 @@
   section.hero{
     padding: 200px 0 100px;
     position: relative;
+    overflow: hidden;
   }
   .hero-glow{
     position: absolute;
