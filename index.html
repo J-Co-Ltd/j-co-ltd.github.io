@@ -33,10 +33,7 @@
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
-  html{ scroll-behavior: smooth;
-      overflow-x: hidden;
-      width: 100%;
-      }
+  html{ scroll-behavior: smooth; }
 
   body{
     background: var(--ink);
@@ -44,7 +41,6 @@
     font-family: var(--body);
     line-height: 1.6;
     overflow-x: hidden;
-    width: 100%;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -147,7 +143,6 @@
   section.hero{
     padding: 200px 0 100px;
     position: relative;
-    overflow: hidden;
   }
   .hero-glow{
     position: absolute;
@@ -260,18 +255,34 @@
     font-size: 16.5px;
   }
 
-  .services-grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    background: var(--line);
+  .services-marquee{
+    overflow: hidden;
     border: 1px solid var(--line);
     border-radius: 20px;
-    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
   }
+  .services-track{
+    display: flex;
+    width: max-content;
+    animation: scrollServices 32s linear infinite;
+  }
+  .services-marquee:hover .services-track{ animation-play-state: paused; }
+
+  @keyframes scrollServices{
+    from{ transform: translateX(0); }
+    to{ transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .services-track{ animation: none; }
+  }
+
   .service-card{
     background: var(--ink-raised);
     padding: 44px;
+    width: 340px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--line);
     transition: background 0.25s ease;
   }
   .service-card:hover{ background: var(--ink-raised-2); }
@@ -548,7 +559,7 @@
   @media (max-width: 860px){
     .nav-links{ display: none; }
     .stats-row{ grid-template-columns: repeat(2,1fr); }
-    .services-grid{ grid-template-columns: 1fr; }
+    .service-card{ width: 270px; padding: 32px; }
     .work-grid{ grid-template-columns: 1fr; }
     .process-list{ grid-template-columns: repeat(2,1fr); }
     section.hero{ padding: 150px 0 70px; }
@@ -649,44 +660,86 @@
       <p>Everything a brand needs to show up online, managed by one team that actually talks to each other.</p>
     </div>
 
-    <div class="services-grid">
+    <div class="services-marquee">
+      <div class="services-track">
 
-      <div class="service-card">
-        <div class="service-icon">
-          <img src="icon-meta.png" alt="Meta Marketing icon">
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="icon-meta.png" alt="Meta Marketing icon">
+          </div>
+          <h3>Meta Marketing</h3>
+          <p>Facebook & Instagram ad campaigns built around real conversion data, not guesswork — targeting, creative, and budget optimized weekly.</p>
+          <div class="service-tags"><span>Facebook Ads</span><span>Instagram Ads</span><span>Retargeting</span></div>
         </div>
-        <h3>Meta Marketing</h3>
-        <p>Facebook & Instagram ad campaigns built around real conversion data, not guesswork — targeting, creative, and budget optimized weekly.</p>
-        <div class="service-tags"><span>Facebook Ads</span><span>Instagram Ads</span><span>Retargeting</span></div>
-      </div>
 
-      <div class="service-card">
-        <div class="service-icon">
-          <img src="icon-social.png" alt="Social Media Management icon">
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="icon-social.png" alt="Social Media Management icon">
+          </div>
+          <h3>Social Media Management</h3>
+          <p>Content calendars, community replies, and posting schedules handled end-to-end, so your feed stays active without you lifting a finger.</p>
+          <div class="service-tags"><span>Content Calendar</span><span>Community</span><span>Reporting</span></div>
         </div>
-        <h3>Social Media Management</h3>
-        <p>Content calendars, community replies, and posting schedules handled end-to-end, so your feed stays active without you lifting a finger.</p>
-        <div class="service-tags"><span>Content Calendar</span><span>Community</span><span>Reporting</span></div>
-      </div>
 
-      <div class="service-card">
-        <div class="service-icon">
-          <img src="icon-design.png" alt="Graphic Design icon">
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="icon-design.png" alt="Graphic Design icon">
+          </div>
+          <h3>Graphic Design</h3>
+          <p>Logos, ad creatives, and brand visuals designed to be instantly recognizable — consistent across every platform you post to.</p>
+          <div class="service-tags"><span>Branding</span><span>Ad Creatives</span><span>Print</span></div>
         </div>
-        <h3>Graphic Design</h3>
-        <p>Logos, ad creatives, and brand visuals designed to be instantly recognizable — consistent across every platform you post to.</p>
-        <div class="service-tags"><span>Branding</span><span>Ad Creatives</span><span>Print</span></div>
-      </div>
 
-      <div class="service-card">
-        <div class="service-icon">
-          <img src="icon-video.png" alt="Video Editing icon">
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="icon-video.png" alt="Video Editing icon">
+          </div>
+          <h3>Video Editing</h3>
+          <p>Reels, ads, and short-form video cut for retention — hooked in the first three seconds, paced for how people actually watch now.</p>
+          <div class="service-tags"><span>Reels</span><span>Ad Video</span><span>Motion Graphics</span></div>
         </div>
-        <h3>Video Editing</h3>
-        <p>Reels, ads, and short-form video cut for retention — hooked in the first three seconds, paced for how people actually watch now.</p>
-        <div class="service-tags"><span>Reels</span><span>Ad Video</span><span>Motion Graphics</span></div>
-      </div>
 
+        <!-- ============ নিচের ৪টা কার্ড উপরেরটারই হুবহু নকল — মুছবে না! ============
+             seamless loop-এর জন্য দরকার। উপরে নতুন সার্ভিস যোগ করলে এখানেও ঠিক
+             একই কার্ড আরেকবার বসাতে হবে, নাহলে স্ক্রল করার সময় একটা ঝাঁকুনি (jump) দেখা যাবে। -->
+
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="icon-meta.png" alt="Meta Marketing icon">
+          </div>
+          <h3>Meta Marketing</h3>
+          <p>Facebook & Instagram ad campaigns built around real conversion data, not guesswork — targeting, creative, and budget optimized weekly.</p>
+          <div class="service-tags"><span>Facebook Ads</span><span>Instagram Ads</span><span>Retargeting</span></div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="icon-social.png" alt="Social Media Management icon">
+          </div>
+          <h3>Social Media Management</h3>
+          <p>Content calendars, community replies, and posting schedules handled end-to-end, so your feed stays active without you lifting a finger.</p>
+          <div class="service-tags"><span>Content Calendar</span><span>Community</span><span>Reporting</span></div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="icon-design.png" alt="Graphic Design icon">
+          </div>
+          <h3>Graphic Design</h3>
+          <p>Logos, ad creatives, and brand visuals designed to be instantly recognizable — consistent across every platform you post to.</p>
+          <div class="service-tags"><span>Branding</span><span>Ad Creatives</span><span>Print</span></div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">
+            <img src="icon-video.png" alt="Video Editing icon">
+          </div>
+          <h3>Video Editing</h3>
+          <p>Reels, ads, and short-form video cut for retention — hooked in the first three seconds, paced for how people actually watch now.</p>
+          <div class="service-tags"><span>Reels</span><span>Ad Video</span><span>Motion Graphics</span></div>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
